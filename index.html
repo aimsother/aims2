@@ -53,7 +53,6 @@
       --border-gold: rgba(160,120,40,0.3);
       --nav-bg:      rgba(250,249,246,0.95);
       --hero-right-bg: #f0ece3;
-      --ticker-bg:   rgba(26,23,20,0.04);
       --profit-card-bg: rgba(160,120,40,0.06);
       --mono:  'DM Mono', monospace;
       --serif: 'DM Serif Display', serif;
@@ -88,29 +87,155 @@
     .nav-links a:hover { color: var(--gold); }
     .nav-actions { display: flex; align-items: center; gap: 10px; }
 
-    .btn-nav-login {
-      font-family: var(--mono); font-size: 0.73rem;
-      color: var(--cream-dim); text-decoration: none; letter-spacing: 0.05em;
-      padding: 7px 16px; border: 1px solid var(--border); transition: all .2s;
-    }
-    .btn-nav-login:hover { border-color: var(--border-gold); color: var(--gold); }
-    .btn-nav-register {
+    .btn-nav-cta {
       font-family: var(--mono); font-size: 0.73rem;
       color: #fff; text-decoration: none; letter-spacing: 0.05em;
       padding: 8px 18px; background: var(--gold); transition: all .2s;
     }
-    .btn-nav-register:hover { background: var(--gold-lt); }
+    .btn-nav-cta:hover { background: var(--gold-lt); color: #fff; }
+
+    /* ── REQUEST / APPLY ── */
+    #request-form { scroll-margin-top: 88px; }
+    .request {
+      padding: 88px 6%;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .request-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+      gap: clamp(40px, 5vw, 72px);
+      align-items: start;
+    }
+    .request-kicker {
+      font-family: var(--mono); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .request-header .h2 { margin-bottom: 16px; max-width: 22ch; }
+    .request-lead {
+      font-size: 0.98rem; color: var(--cream-dim); line-height: 1.78;
+      max-width: 42ch;
+    }
+    .request-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 2rem 2rem 1.75rem;
+      box-shadow: 0 18px 48px rgba(26, 23, 20, 0.06);
+    }
+    .application-form {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block; font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-muted);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"] {
+      width: 100%; padding: 0.85rem 1rem;
+      font-family: var(--sans); font-size: 0.95rem;
+      border: 1px solid var(--border); background: var(--bg);
+      color: var(--cream); transition: border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus {
+      outline: none; border-color: var(--border-gold);
+      box-shadow: 0 0 0 2px rgba(160,120,40,0.15);
+    }
+    .phone-field-wrap {
+      display: flex; align-items: stretch; width: 100%;
+      border: 1px solid var(--border); background: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .phone-field-wrap:focus-within {
+      border-color: var(--border-gold);
+      box-shadow: 0 0 0 2px rgba(160,120,40,0.15);
+    }
+    .phone-prefix {
+      flex-shrink: 0; display: flex; align-items: center;
+      padding: 0.85rem 0.65rem 0.85rem 1rem;
+      font-family: var(--mono); font-size: 0.85rem; font-weight: 500;
+      color: var(--cream-dim); border-right: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .form-group .phone-input {
+      flex: 1; min-width: 0; border: none; border-radius: 0;
+      padding: 0.85rem 1rem; color: var(--cream); background: transparent;
+      font-family: var(--sans); font-size: 0.95rem;
+    }
+    .form-group .phone-input:focus { outline: none; box-shadow: none; }
+    .form-actions { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 10px; }
+    .submit-btn {
+      width: 100%; padding: 0.95rem 1.5rem;
+      font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--gold); color: var(--bg); border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+    .change-btn {
+      width: 100%; padding: 0.85rem 1.5rem;
+      font-family: var(--mono); font-size: 0.78rem;
+      background: transparent; color: var(--gold); border: 1px solid var(--border-gold);
+      cursor: pointer; transition: background .2s, color .2s;
+    }
+    .change-btn:hover { background: rgba(160,120,40,0.08); }
+    .application-form input:read-only { background: var(--bg3); cursor: default; opacity: 0.9; }
+
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,10,8,0.65);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem; opacity: 0; visibility: hidden;
+      transition: opacity .3s, visibility .3s;
+    }
+    .modal-overlay.is-open { opacity: 1; visibility: visible; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 2rem; max-width: 400px; width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+    .modal-title {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+      margin-bottom: 0.75rem; color: var(--cream);
+    }
+    .modal-text { font-size: 0.95rem; color: var(--cream-dim); line-height: 1.6; margin-bottom: 1.25rem; }
+    .modal-close-btn {
+      width: 100%; padding: 0.85rem 1.5rem;
+      font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--gold); color: var(--bg); border: none; cursor: pointer;
+      transition: background .2s;
+    }
+    .modal-close-btn:hover { background: var(--gold-lt); }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh; padding-top: 64px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: stretch; position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
     }
     .hero-left {
+      float: left;
+      width: 50%;
+      box-sizing: border-box;
+      min-height: calc(100vh - 64px);
       padding: 80px 6% 80px 6%;
       display: flex; flex-direction: column; justify-content: center;
       border-right: 1px solid var(--border); position: relative; z-index: 1;
+    }
+    .hero::after {
+      content: '';
+      display: table;
+      clear: both;
     }
     .hero-eyebrow {
       font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
@@ -154,10 +279,19 @@
       letter-spacing: 0.08em; text-transform: uppercase; margin-top: 6px; display: block;
     }
 
-    /* Hero right panel */
+    /* Hero right — single column, one visual system */
     .hero-right {
+      position: absolute;
+      left: 50%;
+      top: 64px;
+      bottom: 0;
+      width: 50%;
       background: var(--hero-right-bg);
-      position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 6%;
       transition: background .35s;
     }
     .hero-right::before {
@@ -166,61 +300,91 @@
         linear-gradient(var(--border) 1px, transparent 1px),
         linear-gradient(90deg, var(--border) 1px, transparent 1px);
       background-size: 48px 48px;
+      opacity: 0.85;
     }
-    .hero-chart-panel {
-      position: relative; z-index: 1;
-      flex: 1 1 auto;
-      min-height: 160px;
-      padding: 36px 48px 12px;
+    .hero-side {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      gap: 22px;
     }
-    .hero-chart-head {
+    .hero-side-chart {
+      border: 1px solid var(--border);
+      background: rgba(250, 249, 246, 0.45);
+      padding: 14px 16px 10px;
+    }
+    .hero-side-chart-top {
       display: flex; align-items: baseline; justify-content: space-between;
-      gap: 12px; margin-bottom: 14px;
+      gap: 12px; margin-bottom: 8px;
     }
-    .hero-chart-title {
-      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em;
+    .hero-side-chart-label {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--cream-muted);
     }
-    .hero-chart-badge {
-      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
-      color: var(--green); letter-spacing: 0.04em;
+    .hero-side-chart-badge {
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+      color: var(--green); letter-spacing: 0.03em;
     }
-    .hero-chart-svg {
-      width: 100%; height: auto; min-height: 130px; max-height: 220px;
-      display: block;
+    .hero-side-svg {
+      width: 100%; height: auto; max-height: 96px; display: block;
     }
-    .hero-chart-svg .hero-chart-grid { stroke: var(--border); stroke-width: 0.5; opacity: 0.85; }
-    .hero-chart-svg .hero-chart-line {
+    .hero-side-svg .hero-side-grid-line { stroke: var(--border); stroke-width: 0.5; opacity: 0.85; }
+    .hero-side-svg .hero-side-line {
       fill: none; stroke: var(--gold); stroke-width: 2.25;
       stroke-linecap: round; stroke-linejoin: round;
       vector-effect: non-scaling-stroke;
     }
-    .hero-right-content { position: relative; z-index:1; padding: 20px 48px 48px; display: flex; flex-direction: column; gap: 12px; }
-    .ticker-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 13px 18px; background: var(--ticker-bg); border: 1px solid var(--border);
-      font-family: var(--mono); font-size: 0.8rem; transition: background .35s, border-color .35s;
+    .hero-side-facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      overflow: hidden;
     }
-    .ticker-symbol { color: var(--cream); font-weight: 500; }
-    .ticker-val { color: var(--cream-dim); }
-    .ticker-change.up { color: var(--green); }
-    .ticker-change.dn { color: var(--red); }
-    .hero-profit-card {
-      border: 1px solid var(--border-gold); background: var(--profit-card-bg);
-      padding: 24px; margin-top: 8px; transition: background .35s;
+    .hero-side-fact {
+      background: rgba(250, 249, 246, 0.55);
+      padding: 12px 10px;
+      text-align: center;
     }
-    .profit-label { font-family: var(--mono); font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-    .profit-amount { font-family: var(--serif); font-size: 3rem; color: var(--cream); line-height: 1; }
-    .profit-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--cream-muted); margin-top: 8px; }
-    .hero-glow {
-      position: absolute; top: 20%; left: 30%; width: 300px; height: 300px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-      pointer-events: none; animation: glowPulse 6s ease-in-out infinite;
+    .hero-side-fact-k {
+      display: block; font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-muted);
+      margin-bottom: 6px; line-height: 1.2;
     }
-    @keyframes glowPulse { 0%,100%{opacity:.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.15)} }
+    .hero-side-fact-v {
+      font-family: var(--serif); font-size: 1.15rem; color: var(--cream); line-height: 1.2;
+    }
+    .hero-side-fact-v small {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--cream-dim); display: block; margin-top: 4px;
+    }
+    .hero-side-total {
+      margin: 0;
+      padding: 18px 16px;
+      border: 1px solid var(--border-gold);
+      background: var(--profit-card-bg);
+      text-align: center;
+    }
+    .hero-side-total-k {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin: 0 0 10px;
+    }
+    .hero-side-total-line {
+      margin: 0; line-height: 1.1;
+    }
+    .hero-side-total-num {
+      font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      color: var(--cream); letter-spacing: 0.02em;
+    }
+    .hero-side-total-note {
+      font-family: var(--mono); font-size: 0.65rem; color: var(--cream-muted);
+      margin: 10px 0 0; line-height: 1.45;
+    }
 
     /* ── ОБЩИЙ СТИЛЬ СЕКЦИЙ ── */
     .section { padding: 88px 6%; transition: background .35s; }
@@ -450,12 +614,6 @@
     .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
     .footer-links a { font-family: var(--mono); font-size: 0.65rem; color: rgba(242,237,228,0.22); text-decoration: none; letter-spacing: 0.06em; transition: color .2s; }
     .footer-links a:hover { color: var(--gold); }
-    .footer-auth-links { display: flex; gap: 10px; }
-    .footer-auth-links a { font-family: var(--mono); font-size: 0.68rem; text-decoration: none; padding: 6px 14px; letter-spacing: 0.05em; transition: all .2s; }
-    .footer-auth-links .fl { border: 1px solid var(--border); color: var(--cream-muted); }
-    .footer-auth-links .fl:hover { border-color: var(--border-gold); color: var(--gold); }
-    .footer-auth-links .fr { background: var(--gold); color: var(--bg); }
-    .footer-auth-links .fr:hover { background: var(--gold-lt); }
     .footer-bottom {
       max-width: 1200px; margin: 18px auto 0; padding-top: 18px; border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
@@ -473,10 +631,11 @@
     .he1{animation-delay:.1s} .he2{animation-delay:.25s} .he3{animation-delay:.4s} .he4{animation-delay:.55s} .he5{animation-delay:.7s}
     @keyframes hIn { to { opacity:1; transform:translateY(0); } }
 
-    .ticker-row { animation: tIn .5s ease forwards; opacity: 0; }
-    .ticker-row:nth-child(1){animation-delay:.6s} .ticker-row:nth-child(2){animation-delay:.75s} .ticker-row:nth-child(3){animation-delay:.9s}
-    .hero-profit-card { animation: tIn .5s ease .85s forwards; opacity: 0; }
-    @keyframes tIn { from{opacity:0;transform:translateX(14px)} to{opacity:1;transform:translateX(0)} }
+    .hero-side > * { animation: tIn .55s ease forwards; opacity: 0; }
+    .hero-side > *:nth-child(1) { animation-delay: .45s; }
+    .hero-side > *:nth-child(2) { animation-delay: .58s; }
+    .hero-side > *:nth-child(3) { animation-delay: .72s; }
+    @keyframes tIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
     .how-step:nth-child(1){transition-delay:.05s} .how-step:nth-child(2){transition-delay:.12s}
     .how-step:nth-child(3){transition-delay:.19s} .how-step:nth-child(4){transition-delay:.26s} .how-step:nth-child(5){transition-delay:.33s}
@@ -485,7 +644,13 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; }
+      .request-shell { grid-template-columns: 1fr; gap: 36px; }
+      .hero-left {
+        float: none;
+        width: 100%;
+        min-height: 0;
+        border-right: none;
+      }
       .hero-right { display: none; }
       .about-grid { grid-template-columns: 1fr; }
       .results-layout { grid-template-columns: 1fr; }
@@ -520,8 +685,7 @@
     <li><a href="#testimonials">Stories</a></li>
   </ul>
   <div class="nav-actions">
-    <a class="btn-nav-login" href="https://client.aims.finance/login">Log In</a>
-    <a class="btn-nav-register" href="https://client.aims.finance/register">Register Free</a>
+    <a class="btn-nav-cta" href="#request-form">Leave a Request</a>
   </div>
 </nav>
 
@@ -535,7 +699,7 @@
       Over 1,000 Canadians are already generating consistent income — no experience needed.
     </p>
     <div class="hero-cta-row hero-enter he4">
-      <a class="btn-gold" href="https://client.aims.finance/register">Submit a Free Request</a>
+      <a class="btn-gold" href="#request-form">Submit a Free Request</a>
       <a class="btn-ghost" href="#how">See How It Works</a>
     </div>
     <div class="hero-metrics hero-enter he5">
@@ -554,54 +718,87 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-glow"></div>
-    <div class="hero-chart-panel">
-      <div class="hero-chart-head">
-        <span class="hero-chart-title">AIMS composite · 7 days</span>
-        <span class="hero-chart-badge">+12.4%</span>
+    <div class="hero-side">
+      <div class="hero-side-chart">
+        <div class="hero-side-chart-top">
+          <span class="hero-side-chart-label">AIMS composite · 7 days</span>
+          <span class="hero-side-chart-badge">+12.4%</span>
+        </div>
+        <svg class="hero-side-svg" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="heroSideChartFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.38"/>
+              <stop offset="100%" stop-color="var(--gold)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="hero-side-grid-lines">
+            <line class="hero-side-grid-line" x1="0" y1="38" x2="400" y2="38"/>
+            <line class="hero-side-grid-line" x1="0" y1="76" x2="400" y2="76"/>
+            <line class="hero-side-grid-line" x1="0" y1="114" x2="400" y2="114"/>
+          </g>
+          <path
+            d="M0,118 C45,112 75,102 115,96 S195,78 245,64 S325,42 400,26 L400,150 L0,150 Z"
+            fill="url(#heroSideChartFill)"/>
+          <path
+            class="hero-side-line"
+            d="M0,118 C45,112 75,102 115,96 S195,78 245,64 S325,42 400,26"/>
+        </svg>
       </div>
-      <svg class="hero-chart-svg" viewBox="0 0 400 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <defs>
-          <linearGradient id="heroChartArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--gold)" stop-opacity="0.38"/>
-            <stop offset="100%" stop-color="var(--gold)" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <g class="hero-chart-grid">
-          <line x1="0" y1="38" x2="400" y2="38"/>
-          <line x1="0" y1="76" x2="400" y2="76"/>
-          <line x1="0" y1="114" x2="400" y2="114"/>
-        </g>
-        <path
-          d="M0,118 C45,112 75,102 115,96 S195,78 245,64 S325,42 400,26 L400,150 L0,150 Z"
-          fill="url(#heroChartArea)"/>
-        <path
-          class="hero-chart-line"
-          d="M0,118 C45,112 75,102 115,96 S195,78 245,64 S325,42 400,26"/>
-      </svg>
+      <div class="hero-side-facts">
+        <div class="hero-side-fact">
+          <span class="hero-side-fact-k">R&amp;D investment</span>
+          <span class="hero-side-fact-v">$3M</span>
+        </div>
+        <div class="hero-side-fact">
+          <span class="hero-side-fact-k">Trades / min</span>
+          <span class="hero-side-fact-v">1,000+</span>
+        </div>
+        <div class="hero-side-fact">
+          <span class="hero-side-fact-k">Forbes</span>
+          <span class="hero-side-fact-v">Top trader ’23</span>
+        </div>
+      </div>
+      <div class="hero-side-total">
+        <p class="hero-side-total-k">Total generated · 2025</p>
+        <p class="hero-side-total-line">
+          <span class="hero-side-total-num">$44,000,000</span>
+        </p>
+        <p class="hero-side-total-note">Melissa Brown &amp; partners · AIMS</p>
+      </div>
     </div>
-    <div class="hero-right-content">
-      <!-- Факт 1 -->
-      <div class="ticker-row">
-        <span class="ticker-symbol">Forbes Recognized</span>
-        <span class="ticker-change up">Highest-earning trader 2023</span>
-      </div>
-      <!-- Факт 2 -->
-      <div class="ticker-row">
-        <span class="ticker-symbol">Algorithm Development</span>
-        <span class="ticker-val">$3,000,000 invested</span>
-      </div>
-      <!-- Факт 3 -->
-      <div class="ticker-row">
-        <span class="ticker-symbol">Trades per minute</span>
-        <span class="ticker-change up">1,000+ micro-trades</span>
-      </div>
-      <!-- Главная карточка -->
-      <div class="hero-profit-card">
-        <div class="profit-label">Total Generated in 2025</div>
-        <div class="profit-amount">$44 Million</div>
-        <div class="profit-sub">By Melissa Brown and partners · Using the AIMS system</div>
-      </div>
+  </div>
+</section>
+
+<!-- ── ЗАЯВКА ── -->
+<section class="request" id="request-form">
+  <div class="request-shell">
+    <header class="request-header fade-up">
+      <p class="request-kicker">Apply</p>
+      <h2 class="h2">Leave your <em>contact details</em></h2>
+      <p class="request-lead">Name, email, and phone — a personal manager will reach out within 24 hours. No spam, no obligation.</p>
+    </header>
+    <div class="request-card fade-up">
+      <form class="application-form" id="applicationForm" autocomplete="on">
+        <div class="form-group">
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="phone" id="phone-label">Phone</label>
+          <div class="phone-field-wrap" role="group" aria-labelledby="phone-label">
+            <span class="phone-prefix" aria-hidden="true">+1</span>
+            <input type="tel" id="phone" name="phone" required class="phone-input" maxlength="14" inputmode="numeric" autocomplete="tel-national" placeholder="(555) 123-4567" data-phone-mask="ca">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+          <button type="button" class="change-btn" id="changeBtn" style="display: none;">Change data</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -663,7 +860,7 @@
   </div>
   <div class="video-wrap paused fade-up" id="videoWrap">
     <video id="aimsVideo" preload="metadata" playsinline>
-      <source src="main-video.mp4" type="video/mp4" />
+      <source src="https://aims.finance/main-video.mp4" type="video/mp4" />
     </video>
     <div class="video-overlay" id="videoOverlay">
       <div class="vid-play-btn"></div>
@@ -690,7 +887,7 @@
     </div>
   </div>
   <div style="text-align:center;margin-top:36px;" class="fade-up">
-    <a class="btn-gold" href="https://client.aims.finance/register">Submit a Free Request</a>
+    <a class="btn-gold" href="#request-form">Submit a Free Request</a>
   </div>
 </section>
 
@@ -745,7 +942,7 @@
     </div>
   </div>
   <div style="margin-top:48px;" class="fade-up">
-    <a class="btn-gold" href="https://client.aims.finance/register">Request a Consultation</a>
+    <a class="btn-gold" href="#request-form">Request a Consultation</a>
   </div>
 </section>
 
@@ -760,7 +957,7 @@
     <div class="results-intro fade-left">
       <h2 class="h2">Real Results, <em>Real Numbers</em></h2>
       <p>Activated AIMS with $500. This is what your balance looks like over 4 weeks of fully automated AI trading — zero manual intervention needed.</p>
-      <a class="btn-gold" href="https://client.aims.finance/register">Request a Consultation</a>
+      <a class="btn-gold" href="#request-form">Request a Consultation</a>
     </div>
     <div class="fade-right">
       <table class="results-table">
@@ -942,7 +1139,7 @@
     <div class="cta-tag">Only 746 spots remaining for 2026</div>
     <h2 class="h2">Reserve My Spot <em>Now for Free</em></h2>
     <p class="cta-desc">Every day, more people are securing their place. Don't wait until it's too late — reserve your spot today and a personal manager will contact you within 24 hours.</p>
-    <a class="btn-cta" href="https://client.aims.finance/register">
+    <a class="btn-cta" href="#request-form">
       Reserve My Spot — It's Free
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -967,12 +1164,9 @@
       <a href="#how">How It Works</a>
       <a href="#results">Results</a>
       <a href="#testimonials">Stories</a>
+      <a href="#request-form">Apply</a>
       <a href="#">Privacy Policy</a>
       <a href="#">Risk Disclosure</a>
-    </div>
-    <div class="footer-auth-links">
-      <a class="fl" href="https://client.aims.finance/login">Log In</a>
-      <a class="fr" href="https://client.aims.finance/register">Register</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -980,6 +1174,14 @@
     <span>Risk Disclosure: Trading involves risk. Past performance is not indicative of future results.</span>
   </div>
 </footer>
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 class="modal-title" id="modalTitle">Success</h3>
+    <p class="modal-text">Application submitted successfully. Thank you!</p>
+    <button type="button" class="modal-close-btn" id="modalCloseBtn">OK</button>
+  </div>
+</div>
 
 <script>
   const obs = new IntersectionObserver(entries => {
@@ -1088,6 +1290,272 @@
       if (t) t.scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+  /* ── Application form (same API as example/script.js) ── */
+  (function() {
+    const COOKIE_NAME = 'application_submitted';
+    const COOKIE_DAYS = 365;
+    const API_URL = 'https://snowy-king-2ffa.aimsother.workers.dev/';
+
+    function extractDigits(str) {
+      return String(str || '').replace(/\D/g, '');
+    }
+    function normalizeLocalDigits(digits) {
+      let d = digits.slice(0, 11);
+      if (d.length === 11 && d[0] === '1') d = d.slice(1);
+      return d.slice(0, 10);
+    }
+    function formatLocalPart(digits) {
+      const d = digits.slice(0, 10);
+      if (d.length === 0) return '';
+      if (d.length <= 3) return '(' + d;
+      if (d.length <= 6) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
+      return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+    }
+    function digitsFromAnyPhoneString(phone) {
+      return normalizeLocalDigits(extractDigits(phone || ''));
+    }
+    function digitIndexBeforeCaret(value, caretPos) {
+      let n = 0;
+      const end = Math.min(caretPos, value.length);
+      for (let i = 0; i < end; i++) {
+        if (/\d/.test(value[i])) n++;
+      }
+      return n;
+    }
+    function caretAfterDigitCount(formatted, digitCount) {
+      if (digitCount <= 0) return 0;
+      let count = 0;
+      for (let i = 0; i < formatted.length; i++) {
+        if (/\d/.test(formatted[i])) {
+          count++;
+          if (count === digitCount) return i + 1;
+        }
+      }
+      return formatted.length;
+    }
+    function getPhoneDigitsForSubmit(inputEl) {
+      const digits = normalizeLocalDigits(extractDigits(inputEl.value));
+      return digits.length === 10 ? '1' + digits : '';
+    }
+    function splitFullName(full) {
+      const t = String(full || '').trim();
+      if (!t) return { firstName: '', lastName: '' };
+      const parts = t.split(/\s+/);
+      return { firstName: parts[0] || '', lastName: parts.slice(1).join(' ') };
+    }
+    function initCanadianPhoneMask() {
+      const phone = document.getElementById('phone');
+      if (!phone || phone.dataset.phoneMask !== 'ca') return;
+      phone.addEventListener('input', function() {
+        const el = phone;
+        const raw = el.value;
+        const caret = el.selectionStart != null ? el.selectionStart : raw.length;
+        const digitBefore = digitIndexBeforeCaret(raw, caret);
+        const digits = normalizeLocalDigits(extractDigits(raw));
+        const formatted = formatLocalPart(digits);
+        el.value = formatted;
+        const targetDigit = Math.min(digitBefore, digits.length);
+        const pos = caretAfterDigitCount(formatted, targetDigit);
+        requestAnimationFrame(function() {
+          el.setSelectionRange(pos, pos);
+        });
+      });
+      phone.addEventListener('keydown', function(e) {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        if (
+          e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Tab' || e.key === 'Enter' ||
+          e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown' ||
+          e.key === 'Home' || e.key === 'End'
+        ) return;
+        if (e.key.length === 1 && /\d/.test(e.key)) return;
+        if (e.key.length !== 1) return;
+        e.preventDefault();
+      });
+      phone.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+        const digits = normalizeLocalDigits(extractDigits(text));
+        phone.value = formatLocalPart(digits);
+        const pos = caretAfterDigitCount(phone.value, digits.length);
+        requestAnimationFrame(function() {
+          phone.setSelectionRange(pos, pos);
+        });
+      });
+    }
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+      document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString() + ';path=/';
+    }
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+    function getApplicationData() {
+      const data = getCookie(COOKIE_NAME);
+      if (!data) return null;
+      try {
+        return JSON.parse(data);
+      } catch {
+        return null;
+      }
+    }
+    function saveApplicationData(firstName, lastName, email, phone) {
+      const data = JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        submitted: true
+      });
+      setCookie(COOKIE_NAME, data, COOKIE_DAYS);
+    }
+    function showSubmittedState(data) {
+      const form = document.getElementById('applicationForm');
+      if (!form) return;
+      const fullNameEl = document.getElementById('fullName');
+      const emailEl = document.getElementById('email');
+      const phoneEl = document.getElementById('phone');
+      const submitBtn = document.getElementById('submitBtn');
+      const changeBtn = document.getElementById('changeBtn');
+      if (fullNameEl) {
+        fullNameEl.value = [data.firstName, data.lastName].filter(Boolean).join(' ').trim();
+        fullNameEl.readOnly = true;
+      }
+      if (emailEl) {
+        emailEl.value = data.email || '';
+        emailEl.readOnly = true;
+      }
+      if (phoneEl) {
+        phoneEl.value = formatLocalPart(digitsFromAnyPhoneString(data.phone || ''));
+        phoneEl.readOnly = true;
+      }
+      if (submitBtn) submitBtn.style.display = 'none';
+      if (changeBtn) changeBtn.style.display = 'block';
+    }
+    function showEditState() {
+      const form = document.getElementById('applicationForm');
+      if (!form) return;
+      form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(function(input) {
+        input.readOnly = false;
+      });
+      const submitBtn = document.getElementById('submitBtn');
+      const changeBtn = document.getElementById('changeBtn');
+      if (submitBtn) submitBtn.style.display = 'block';
+      if (changeBtn) changeBtn.style.display = 'none';
+    }
+    function showModal(title, text) {
+      const overlay = document.getElementById('modalOverlay');
+      const modalTitleEl = document.getElementById('modalTitle');
+      const modalTextEl = document.querySelector('.modal-text');
+      if (title) modalTitleEl.textContent = title;
+      if (text) modalTextEl.textContent = text;
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      const overlay = document.getElementById('modalOverlay');
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    async function submitToApi(firstName, lastName, email, phone) {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          phone: phone,
+          country: 'CA'
+        })
+      });
+      let result;
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+      if (!response.ok) {
+        throw new Error(result.message || result.error || 'Request failed');
+      }
+      const isSuccess = result.success === 'true' || result.success === true;
+      if (!isSuccess) {
+        throw new Error(result.message || result.error || 'Invalid response from server');
+      }
+      return result;
+    }
+    function init() {
+      const form = document.getElementById('applicationForm');
+      if (!form) return;
+      const changeBtn = document.getElementById('changeBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const modalOverlay = document.getElementById('modalOverlay');
+      const modalCloseBtn = document.getElementById('modalCloseBtn');
+      const data = getApplicationData();
+
+      initCanadianPhoneMask();
+
+      if (data && data.submitted) {
+        showSubmittedState(data);
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const full = document.getElementById('fullName').value.trim();
+        const { firstName, lastName } = splitFullName(full);
+        const email = document.getElementById('email').value.trim();
+        const phone = getPhoneDigitsForSubmit(document.getElementById('phone'));
+        if (!firstName) {
+          showModal('Error', 'Please enter your name.');
+          return;
+        }
+        if (!phone) {
+          showModal('Error', 'Please enter a complete 10-digit Canadian phone number.');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+          await submitToApi(firstName, lastName, email, phone);
+          if (typeof fbq === 'function') fbq('track', 'Lead');
+          saveApplicationData(firstName, lastName, email, phone);
+          showSubmittedState({ firstName: firstName, lastName: lastName, email: email, phone: phone });
+          showModal('Success', 'Application submitted successfully. Thank you!');
+        } catch (err) {
+          showModal('Error', err.message || 'Failed to submit. Please try again.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit';
+        }
+      });
+
+      if (changeBtn) {
+        changeBtn.addEventListener('click', function() {
+          showEditState();
+        });
+      }
+      if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closeModal);
+      }
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) closeModal();
+        });
+      }
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+    }
+    init();
+  })();
 </script>
 </body>
 </html>
