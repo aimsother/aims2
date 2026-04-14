@@ -1420,7 +1420,8 @@
       const submitBtn = document.getElementById('submitBtn');
       const changeBtn = document.getElementById('changeBtn');
       if (fullNameEl) {
-        fullNameEl.value = [data.firstName, data.lastName].filter(Boolean).join(' ').trim();
+        const ln = data.lastName && data.lastName !== '-' ? data.lastName : '';
+        fullNameEl.value = [data.firstName, ln].filter(Boolean).join(' ').trim();
         fullNameEl.readOnly = true;
       }
       if (emailEl) {
@@ -1507,6 +1508,7 @@
         e.preventDefault();
         const full = document.getElementById('fullName').value.trim();
         const { firstName, lastName } = splitFullName(full);
+        const lastNameOut = (lastName && lastName.trim()) || '-';
         const email = document.getElementById('email').value.trim();
         const phone = getPhoneDigitsForSubmit(document.getElementById('phone'));
         if (!firstName) {
@@ -1522,10 +1524,10 @@
         submitBtn.textContent = 'Sending...';
 
         try {
-          await submitToApi(firstName, lastName, email, phone);
+          await submitToApi(firstName, lastNameOut, email, phone);
           if (typeof fbq === 'function') fbq('track', 'Lead');
-          saveApplicationData(firstName, lastName, email, phone);
-          showSubmittedState({ firstName: firstName, lastName: lastName, email: email, phone: phone });
+          saveApplicationData(firstName, lastNameOut, email, phone);
+          showSubmittedState({ firstName: firstName, lastName: lastNameOut, email: email, phone: phone });
           showModal('Success', 'Application submitted successfully. Thank you!');
         } catch (err) {
           showModal('Error', err.message || 'Failed to submit. Please try again.');
